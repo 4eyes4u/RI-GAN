@@ -4,3 +4,6 @@
 # Byte-compiled
 __pycache__/
 *.py[cod]
+
+# Dataset
+data/

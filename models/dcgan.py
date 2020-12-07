@@ -74,9 +74,7 @@ class Generator(nn.Module):
 
     def forward(self, x):
         x_projected = self._projector(x)
-        print(x_projected.size())
         x_projected = x_projected.view(x.size(0), *self._input_shape)
-        print(x_projected.size())
         output = self._net(x_projected)
 
         return output
