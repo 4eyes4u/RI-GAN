@@ -1,6 +1,9 @@
 import os
 import torch
 import torch.nn as nn
+import zipfile
+import logging
+import shutil
 
 from .constants import DATA_DIR, LATENT_SPACE_DIM
 
@@ -19,11 +22,57 @@ from models.dcgan import Generator, Discriminator
 
 
 def prepare_celeba(celeba_path: str, img_size: int):
-    # TODO
+    r"""Downloading and preparing CelebA dataset.
 
-    celeba_url = r"https://s3.amazonaws.com/video.udacity-data.com/topher/2018\
-                   /November/5be7eb6f_processed-celeba-small/\
-                   processed-celeba-small.zip"
+    Args:
+        -celeba_path (str): Where to store dataset.
+        -img_size (int): Size of singleton image in the dataset.
+    """
+
+    celeba_url = r"https://s3.amazonaws.com/video.udacity-data.com/topher/2018/November/5be7eb6f_processed-celeba-small/processed-celeba-small.zip"
+
+    # download dataset
+    print("downloading CelebA...")
+    resource_tmp_path = celeba_path + ".zip"
+    download_url_to_file(celeba_url, resource_tmp_path)
+    print("finished")
+
+    # unzipping downloaded dataset
+    print("unzipping...")
+    with zipfile.ZipFile(resource_tmp_path) as zf:
+        os.makedirs(celeba_path, exist_ok=True)
+        zf.extractall(path=celeba_path)
+    print("finished")
+
+    # removing temporary files
+    os.remove(resource_tmp_path)
+    print("removed temporary file")
+
+    # preparing dataset
+    print("preparing CelebA...")
+    shutil.rmtree(os.path.join(celeba_path, "__MACOSX"))
+    dst_data_directory = os.path.join(celeba_path, "processed_celeba_small")
+    os.remove(os.path.join(dst_data_directory, ".DS_Store"))
+    data_directory1 = os.path.join(dst_data_directory, "celeba")
+    data_directory2 = os.path.join(data_directory1, "New Folder With Items")
+    for element in os.listdir(data_directory1):
+        if not element.endswith(".jpg"):
+            continue
+
+        if os.path.isfile(os.path.join(data_directory1, element)):
+            shutil.move(os.path.join(data_directory1, element),
+                        os.path.join(dst_data_directory, element))
+
+    for element in os.listdir(data_directory2):
+        if not element.endswith(".jpg"):
+            continue
+
+        if os.path.isfile(os.path.join(data_directory2, element)):
+            shutil.move(os.path.join(data_directory2, element),
+                        os.path.join(dst_data_directory, element))
+
+    shutil.rmtree(data_directory1)
+    print("finished")
 
 
 def get_data_loader(batch_size: int, img_size: int) -> DataLoader:

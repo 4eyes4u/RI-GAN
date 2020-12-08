@@ -7,7 +7,9 @@ import logging
 
 from argparse import Namespace
 
+import numpy as np
 import torch.nn as nn
+from torchvision.utils import save_image, make_grid
 import utils.utils as utils
 
 from torch.utils.tensorboard import SummaryWriter
@@ -50,11 +52,17 @@ def make_dir_hierarchy():
 
 
 if __name__ == "__main__":
+    paths = make_dir_hierarchy()
+
     # configurating logger
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s: [%(levelname)s] %(message)s",
-        datefmt="%y-%m-%d %H:%M:%S"
+        datefmt="%y-%m-%d %H:%M:%S",
+        handlers=[
+            logging.FileHandler(os.path.join(paths.log_path, "log.txt")),
+            logging.StreamHandler()
+        ]
     )
 
     # fetching device
@@ -65,8 +73,6 @@ if __name__ == "__main__":
     with open("train_config.json", "r") as f:
         train_config = json.load(f)
         args = Namespace(**train_config)
-
-    paths = make_dir_hierarchy()
 
     # initializing networks and optimizers
     G, D = utils.get_gan(device)
@@ -82,12 +88,13 @@ if __name__ == "__main__":
     # for logging
     log_batch_size = 25
     log_noise = utils.get_latent_batch(log_batch_size, device)
-    D_loss_values = []
-    G_loss_values = []
+    D_loss_values, G_loss_values = [], []
     img_count = 0
 
+    # responsible for dumping data in TensorBoard
     writer = SummaryWriter(paths.log_path)
 
+    print("training started...")
     for epoch in range(args.num_epochs):
         for batch_idx, (real_batch, _) in enumerate(data_loader):
             real_batch = real_batch.to(device)
@@ -123,10 +130,33 @@ if __name__ == "__main__":
 
             if batch_idx % args.log_freq == 0:
                 fmt = [epoch, batch_idx + 1, len(data_loader)]
-                logging.info("epoch={:>2} batch=[{}/{}]".format(*fmt))
+                logging.info("epoch={} batch=[{}/{}]".format(*fmt))
+
+            # saving intermediate results
+            if batch_idx % args.imagery_freq == 0:
+                with torch.no_grad():
+                    log_imgs = G(log_noise)
+                    log_imgs_resized = nn.Upsample(scale_factor=2)(log_imgs)
+
+                    log_grid_name = f"{str(img_count).zfill(8)}.png"
+                    img_count += 1
+                    log_grid_path = os.path.join(paths.imagery_path,
+                                                 log_grid_name)
+                    save_image(log_imgs,
+                               log_grid_path,
+                               nrow=int(np.sqrt(log_batch_size)),
+                               normalize=True)
+
+                    log_grid = make_grid(log_imgs,
+                                         nrow=int(np.sqrt(log_batch_size)),
+                                         normalize=True)
+                    writer.add_image("intermediate_imagery",
+                                     log_grid,
+                                     global_step)
 
         # dumping generator
         if (epoch + 1) % args.checkpoint_freq == 0:
             torch.save(G.state_dict(),
                        os.path.join(paths.checkpoints_path,
                                     f"dcgan_ckpt_epoch_{epoch + 1}.pth"))
+    print("finished")
