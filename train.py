@@ -41,6 +41,7 @@ def make_dir_hierarchy():
     shutil.copy2("train_config.json", runs_path)
 
     paths = {
+        "timestamp": timestamp,
         "runs_path": runs_path,
         "imagery_path": imagery_path,
         "log_path": log_path,
