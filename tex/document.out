@@ -2,8 +2,9 @@
 \BOOKMARK [1][-]{section.2}{Related Work}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Generativne suparnicke mre\236e}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{DCGAN}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{IS}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{FID}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{Kvantifikovanje obucenosti}{}% 7
-\BOOKMARK [1][-]{section.4}{Eksperimenti}{}% 8
-\BOOKMARK [1][-]{section.5}{Zakljucak}{}% 9
+\BOOKMARK [2][-]{subsection.2.3}{Lip\235ic neprekidnost generatora}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{IS}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{FID}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Kvantifikovanje obucenosti}{}% 8
+\BOOKMARK [1][-]{section.4}{Eksperimenti}{}% 9
+\BOOKMARK [1][-]{section.5}{Zakljucak}{}% 10
