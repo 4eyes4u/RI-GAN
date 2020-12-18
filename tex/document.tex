@@ -38,11 +38,11 @@ U ovom poglavlju ćemo opisati princip rada GAN-ova i metrika koje ćemo nadalje
 \subsection{Generativne suparničke mreže}
 	Prvo dajemo neformalnu ideju. Osnovni cilj je naučiti raspodelu podataka tako da je moguće vršiti uzorkovanje, čime se dobija mogućnost generisanja podataka koji zapravo ne postoje. GAN arhitektura podrazumeva upotrebu dva modela. Prvi je zadužen za učenje pomenute raspodele, dok drugi treba da razlikuje stvarne i generisane podatke. Suparničkim učenjem ova dva modela se stvarna raspodela podataka sve bolje aproksimira.
 	
-	Neka je $\mathcal{X}=\mathbb{R}^{d \times d}$ prostor slika dimenzija $d\times d$. Bilo koji skup slika možemo predstaviti nekom raspodelom $p_r$ nad $\mathcal{X}$. Skup nad kojim obučavamo model možemo definisati kao prost slučajan uzorak iz raspodele $p_r$. Cilj je naučiti parametrizovanu raspodelu $p_g$ koja aproksimira $p_r$.
+	Neka je $\mathcal{X}=\mathbb{R}^{c \times d \times d}$ prostor $c$-kanalnih slika dimenzija $d\times d$. Bilo koji skup slika možemo predstaviti nekom raspodelom $p_r$ nad $\mathcal{X}$. Skup nad kojim obučavamo model možemo definisati kao prost slučajan uzorak iz raspodele $p_r$. Cilj je naučiti parametrizovanu raspodelu $p_g$ koja aproksimira $p_r$.
 	
 	GAN se sastoji od \textit{generatora} i \textit{diskriminatora}. Diskriminator posmatramo kao preslikavanje $D: \mathcal{X} \rightarrow [0, 1]$, dok generator kao $G:\mathcal{Z} \rightarrow \mathcal{X}$, gde je $\mathcal{Z}$ latentni prostor. Pomenuti latentni prostor služi za uzorkovanje šuma na osnovu kojeg generator pokušava da generiše elemente raspodele $p_r$. Ako takvo uzorkovanje šuma vršimo iz raspodele $p_z$ definisane nad $\mathcal{Z}$, tada raspodelu $p_g$ možemo definisati kao $G(p_z)$.
 	
-	Napomenimo male vrednosti diskriminatora odgovaraju generisanim podacima, dok veće stvarnim. Prema tome, generator nastoji generisanju podataka za koje diskriminator daje vrednosti bliske $0$, dok diskriminator za takve ulaze nastoji da se sve viši približi vrednosti $1$.
+	Napomenimo da male vrednosti diskriminatora odgovaraju generisanim podacima, dok veće stvarnim. Prema tome, generator nastoji generisanju podataka za koje diskriminator daje vrednosti bliske $0$, dok diskriminator za takve ulaze nastoji da se sve viši približi vrednosti $1$.
 	
 	Obučavanje diskriminatora i generatora se vrši uporedo, usled čega se može videti kao min-max igra. Takav proces se može formalizovati:
 	\begin{equation}
@@ -60,26 +60,27 @@ U ovom poglavlju ćemo opisati princip rada GAN-ova i metrika koje ćemo nadalje
 \subsection{DCGAN}
 Generativne suparničke mreže ne podrazumevaju nikakav konkretan model ni za generator ni za diskriminator. S tim u vezi, zavisnosti od domena primene se mogu dizajnirati odgovarajući modeli. Kako se CelebA sastoji od slika, to se opredeljujemo za arhitekturu baziranu na konvolutivnim neuronskim mrežama. Koristićemo DCGAN arhitekturu \cite{DCGAN-2016}, pre svega zbog povoljnog vremena obučavanja.
 
-Prvo ćemo objasniti strukturu generatora ove arhitekture. Sastoji se $5$ blokova koji vrše decimaciju prostornih dimenzija ulaznog tenzora za faktor $2$. Svaki blok se sastoji od konvolutivnog sloja praćenog BN slojem \cite{BN-2015}, osim u poslednjem bloku gde ne postoji sloj normalizacije. Aktivaciona funkcija u svakom konvolutivnom sloju je ReLU \cite{ReLU-2010}, osim u poslednjem gde je sigmoid. Konvolutivni slojevi imaju redom $128, 256, 512, 1024, 1$ kanala. Decimacija se postiže postavljanjem pomeraja konvolutivnog na $2$. Ulazni tenzor je trokanalna RGB slika, koja se prethodno normalizuje sa $\hat{\mu}=0.5$ i $\hat{\sigma}=0.5$.
+Prvo ćemo objasniti strukturu diskriminatora ove arhitekture. Sastoji se $5$ blokova koji vrše decimaciju prostornih dimenzija ulaznog tenzora za faktor $2$. Svaki blok se sastoji od konvolutivnog sloja praćenog BN slojem \cite{BN-2015}, osim u poslednjem bloku gde ne postoji sloj normalizacije. Aktivaciona funkcija u svakom konvolutivnom sloju je ReLU \cite{ReLU-2010}, osim u poslednjem gde je sigmoid. Konvolutivni slojevi imaju redom $128, 256, 512, 1024, 1$ kanala. Decimacija je postignuta postavljanjem pomeraja konvolutivnog sloja na $2$. Ulazni tenzor je trokanalna RGB slika, koja se prethodno normalizuje sa $\hat{\mu}=0.5$ i $\hat{\sigma}=0.5$.
 
-Generator u odnosu na diskriminator ima inverznu strukturu. Koristi $4$ ekspanziona bloka i transponovane konvolutivne slojeve umesto običnih. Broj kanala u konvolutivnim slojevima je redom $1024, 512, 256, 128, 3$. Pre nego što se latentni šum prosledi prvom konvolutivnom sloju, vrši se projektovanje potpuno povezanim slojem u prostor odgovarajuće dimenzije. Aktivaciona funkcija poslednjeg sloja je hiperbolički tangens.
+Generator u odnosu na diskriminator ima inverznu strukturu. Koristi $4$ ekspanziona bloka i transponovane konvolutivne slojeve umesto običnih. Broj kanala u konvolutivnim slojevima je redom $512, 256, 128, 3$. Pre nego što se latentni šum prosledi prvom konvolutivnom sloju, vrši se projektovanje potpuno povezanim slojem u prostor $\mathbb{R}^{1024 \times 4 \times 4}$. Aktivaciona funkcija poslednjeg sloja je hiperbolički tangens.
 
 \subsection{Lipšic neprekidnost generatora}
 Pretpostavimo da je diskriminator $D$ neuronska mreža koja za ulaz $x\in \mathcal{X}$ ima sledeći oblik:
 \begin{equation}
-f(x, \theta) = \prod^{L+1}_{i=0} \beta_{i} + W_{i+1}a_{i},
+f(x, \theta) = \left(\prod^{L}_{i=1} a_{i}(\beta_i + W_{i})\right)(x),
 \end{equation}
-gde je $\theta = \{W_i\}^{L+1}_{i=0}$ skup parametara koji se obučavaju, $W_i \in \mathbb{R}^{d_i \times d_{i-1}}$, $W^{L+1} \in \mathbb{R}^{1 \times d_L}$ i $\{a_i\}^{L+1}_{i=0}$ aktivacione funkcije koje se primenjuju član po član.
+gde je $\theta = \{W_i\}^{L}_{i=1}$ skup parametara koji se obučavaju, $W_i \in \mathbb{R}^{d_i \times d_{i-1}}$ i $\{a_i\}^{L}_{i=1}$ aktivacione funkcije koje se primenjuju član po član. Napomenimo da $d_0$ predstavlja broj kanala ulaza, dok je $d_L=1$.
 
-U \cite{GAN-2014} je dokazano da za fiksiran generator $G$, optimalan diskriminator je oblika:
+Dokazano je \cite{GAN-2014} da za fiksiran generator $G$, optimalan diskriminator ima oblik:
 \begin{equation}
 D^{\ast}_{G}(x) = \frac{p_r(x)}{p_r(x) + p_g(x)}=\sigma(f^{\ast}(x)),
 \end{equation}
 gde je $\sigma$ sigmoid, a $f^{\ast}(x) = \log{p_r(x)} - \log{p_g(x)}$. Tada dobijamo:
 \begin{equation}
 \nabla_x D^{\ast}_{G}(x) \propto \nabla_x f^{\ast}(x)=\frac{1}{p_r(x)}\nabla_x p_r(x)-\frac{1}{p_g(x)}\nabla_x p_g(x).
+\label{eq:grad}
 \end{equation}
-Primetimo da gradijent $\nabla_x f^{\ast}(x)$ nije ograničen. Iz tog razloga dolazi do nepredvidivih oscilacija tokom obučavanja i česte divergencije. Zato je neophodno nametnuti dodatne uslove za $f$. Na osnovu \cite{Lipschitz-2017}, diskriminator obučavamo u prostoru $K$-Lipšic neprekidnih funkcija\footnote{$(\exists K > 0)(\forall x, y \in \mathcal{D}) \norm{f(x) - f(y)} / \norm{x-y} \leq K$}. Drugim rečima, formula \ref{eq:GANClassic} postaje
+Primetimo da gradijent $\nabla_x f^{\ast}(x)$ nije ograničen. Iz tog razloga dolazi do nepredvidivih oscilacija tokom obučavanja i česte divergencije. Zato je neophodno nametnuti dodatne uslove za $f$. Na osnovu \cite{Lipschitz-2017}, diskriminator obučavamo u prostoru $K$-Lipšic neprekidnih funkcija\footnote{$(\exists K > 0)(\forall x, y \in \mathcal{D}) \norm{f(x) - f(y)} / \norm{x-y} \leq K$}. Tada je gradijent iz formule \ref{eq:grad} ograničen. Formula \ref{eq:GANClassic} postaje:
 \begin{equation}
 \min_G \max_{\norm{f}_{\operatorname{Lip} \leq K}} V(D, G),
 \end{equation}
@@ -118,7 +119,7 @@ F(\phi(p_r), \phi(p_g)) = \norm{\mu_r - \mu_g} + \text{tr}\left(\Sigma_r + \Sigm
 \end{equation}
 gde je $\text{tr}$ operator traga matrice.
 
-Konačno, definišemo FID\footnote{eng. \textit{Fréchet Inception distance}}$(p_r, p_g)$ kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
+Konačno, definišemo FID$(p_r, p_g)$\footnote{eng. \textit{Fréchet Inception distance}} kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
 
 \section{Kvantifikovanje obučenosti}
 
@@ -126,6 +127,7 @@ Konačno, definišemo FID\footnote{eng. \textit{Fréchet Inception distance}}$(p
 
 \section{Zaključak}
 
+\newpage
 \begin{thebibliography}{9}
 	\bibitem{GAN-2014}
 	Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. Generative Adversarial Nets. \textit{arXiv preprint arXiv:1406.2661}, 2014.
