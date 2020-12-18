@@ -100,6 +100,9 @@ if __name__ == "__main__":
         for batch_idx, (real_batch, _) in enumerate(data_loader):
             real_batch = real_batch.to(device)
 
+            G.train()
+            D.train()
+
             # discriminator part
             D_optim.zero_grad()
 
@@ -135,6 +138,9 @@ if __name__ == "__main__":
 
             # saving intermediate results
             if batch_idx % args.imagery_freq == 0:
+                G.eval()
+                D.eval()
+
                 with torch.no_grad():
                     log_imgs = G(log_noise)
                     log_imgs_resized = nn.Upsample(scale_factor=2)(log_imgs)
