@@ -34,7 +34,7 @@ linkcolor=red
 
 \section{Uvod}
 
-\section{\textit{Related Work}}
+\section{Pređašnji rad}
 U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju koristimo i metrika kojima ćemo kvantifikovati obučenost modela.
 
 \subsection{Generativne suparničke mreže}
@@ -123,9 +123,27 @@ gde je $\text{tr}$ operator traga matrice.
 
 Konačno, definišemo FID$(p_r, p_g)$\footnote{eng. \textit{Fréchet Inception distance}} kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
 
-\section{Kvantifikovanje obučenosti}
-
 \section{Eksperimenti}
+Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i DCGAN-SN \cite{SN-2018}. Za obučavanje je korišćena \texttt{Python} biblioteka \texttt{PyTorch} \cite{PyTorch-2019}. Svi eksperimenti su vršeni upotrebom servisa Google Colaboratory na kom smo imali pristup Nvidia T4 grafičkom procesoru.
+
+Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno ne više od 30 epoha. Korišćen je Adam optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
+
+\subsection{Uticaj spektralne normalizacije}
+U ovom eksperimentu utvđujemo da li i koliko spektralna normalizacija poboljšava generator.
+
+Pri istim uslovima poredimo rezultate modela sa i bez spektralne normalizacije. Obučavanje vršimo za sve dopustive vrednosti parametra $k$.
+
+\subsection{Uticaj veličine skupa za obučavanje}
+U ovom eksperimentu utvrđujemo da li je inicijalni skup podataka moguće redukovati, a postići uporediv kvalitet modela.
+
+Iz celog skupa podataka, ravnomernom raspodelom uzorkujemo $30\%$, $50\%$, $70\%$ i $90\%$ podataka.
+
+\subsection{Merenje preprilagođenosti}
+U ovom eksperimentu utvrđujemo da li je došlo do preprilagođavanja modela i u kojoj meri.
+
+Skup podataka $S$ podelimo na dva podskupa $S_{train}$ i $S_{val}$. Metriku koju koristimo za ocenu kvaliteta obučenosti modela označimo sa $d$. Skup slika generisanih od strane generatora označimo sa $S_g$. Model obučavamo nad $S_{train}$, dok se $S_{val}$ ne koristi tokom obučavanja. Ukoliko model dobro generalizuje, tada $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 1$, dok u suprotnom $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 0$. Skup $S$ delimo u razmeri $30:70$ i $10:90$.
+
+\section{Rezultati}
 
 \section{Zaključak}
 
@@ -172,7 +190,13 @@ Konačno, definišemo FID$(p_r, p_g)$\footnote{eng. \textit{Fréchet Inception d
 	Vinod Nair, Geoffrey E. Hinton. Rectified linear units improve restricted boltzmann machines. \textit{ICML: Proceedings of the 27th International Conference on International Conference on Machine Learning}, 2010.
 	
 	\bibitem{Lipschitz-2017}
-	Guo-Jun Qi. Loss-Sensitive Generative Adversarial Networks on Lipschitz Densities. \textit{arXiv preprint:arXiv:1701.06264}, 2017.
+	Guo-Jun Qi. Loss-Sensitive Generative Adversarial Networks on Lipschitz Densities. \textit{arXiv preprint arXiv:1701.06264}, 2017.
+	
+	\bibitem{PyTorch-2019}
+	Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Köpf, Edward Yang, Zach DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, Soumith Chintala. PyTorch: An Imperative Style, High-Performance Deep Learning Library. \textit{arXiv preprint arXiv:1912.01703}, 2019.
+	
+	\bibitem{Adam-2014}
+	Diederik P. Kingma, Jimmy Ba. Adam: A Method for Stochastic Optimization. \textit{arXiv preprint arXiv:1412.6980}, 2014.
 \end{thebibliography}
 
 \end{document}
