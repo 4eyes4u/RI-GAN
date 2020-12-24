@@ -10,3 +10,6 @@ data/
 
 # Pyhon 3.3+ supports implicit namespace package
 __init__.py
+
+# Folder with logs, imagery and checkpoints
+runs/
