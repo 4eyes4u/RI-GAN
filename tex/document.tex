@@ -103,9 +103,9 @@ Prepostavimo da svakoj instanci skupa podataka $x$ možemo pridružiti oznaku $y
 
 Prema tome, $p_g(y|x)$ treba da odgovara Dirakovoj $\delta$ funkciji, a $p_g(y)$ ravnomernoj raspodeli. Konačno, IS definišemo:
 \begin{equation}
-\operatorname{IS}(p_g) = \exp(\mathbb{E}_{x \sim p_g}[KL(p_g(y|x)||p_g(y))]),
+\operatorname{IS}(p_g) = \exp(\mathbb{E}_{x \sim p_g}[D_{KL}(p_\mathcal{M}(y|x)||p_\mathcal{M}(y))]),
 \end{equation}
-gde je $KL$ Kulbek-Lajblerova divergencija.
+gde je $D_{KL}$ Kulbek-Lajblerova divergencija.
 
 Ispostavlja se da ova metrika dobro korelira sa ljudskom odlukom \cite{IS-2016}. Međutim, IS ni na koji način ne koristi $p_r$. Takođe, skup podataka nad kojim je $\mathcal{M}$ treniran možda nema ni približno sličnu raspodelu kao $p_r$ usled čega GAN model biva proglašen lošim.
 
