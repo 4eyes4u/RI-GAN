@@ -24,15 +24,19 @@ linkcolor=red
 
 \begin{document}
 \date{}
-\title{RI-GAN}
+\title{Redukovano GAN obučavanje}
 \author{Kosta Grujčić, Momčilo Knežević}
-\affil{Matematički fakultet }
+\affil{Matematički fakultet}
 \maketitle
 
 \begin{abstract}
+Generativne suparničke mreže su postale veoma popularan generativan model naročito oblasti u računarskog vida. Nastale su mnogobrojne arhitekture, posebno dizajnirane za različite domene primene. Problem sa ovom vrstom modela je otežana konvergencija, izražena osetljivost na hiperparametre i veliki broj instanci skupa podataka nad kojim se vrši obučavanje. Odlučili smo da proverimo ovu tezu obučavajući DCGAN model nad redukovanim CelebA skupom podataka uvodeći dodatne uslove koji pomažu boljoj konvergenciji.
 \end{abstract}
 
 \section{Uvod}
+Generativne suparničke mreže (GAN) \cite{GAN-2014} uživaju veliku popularnost kao generativni modeli. Nalaze uspešnu primenu u različitim domenima. Dizajnirane su mnogobrojne arhitekture poput \cite{DCGAN-2016}, \cite{WGAN-2017}, \cite{CGAN-2014}, \cite{StyleGAN-2018}, \cite{StyleGAN2-2019}. Zajednička osobina većine GAN arhitektura je otežana konvergencija usled neograničenog gradijenta, te se nastoji uvođenju restrikcija \cite{Lipschitz-2017}. Usled navedenog problema, potrebno je vršiti iscrpnu pretragu hiperparametara i koristiti veliki skup podataka za obučavanje.
+
+Da bi ispitali kojoj u je meri ovo izraženo, izmenićemo poznatu DCGAN arhitekturu uvodeći spektralnu normalizaciju \cite{SN-2018} i redukujući skup podataka CelebA \cite{CelebA-2015}. Takođe, proverićemo da li spektralna normalizacija ima kontraefekat -- preprilagođavanje. Obučavanje kvantifikujemo poznatim metrikama IS (eng. \textit{inception score}) \cite{IS-2016} i FID (eng. \textit{Fréchet Inception distance}) \cite{FID-2017}.
 
 \section{Pređašnji rad}
 U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju koristimo i metrika kojima ćemo kvantifikovati obučenost modela.
@@ -97,9 +101,9 @@ Adekvatno obučen GAN poseduje sigurnost i varijabilnost. To znači da generator
 
 Prepostavimo da svakoj instanci skupa podataka $x$ možemo pridružiti oznaku $y$. Skup podataka takve oznake ne mora da sadrži, ali ih je moguće uvesti dodatnim modelom $\mathcal{M}$ (kao što je Inception \cite{Inception-2014}) koji je treniran kao klasifikacioni model na nekom drugom skupu podataka (kao što je ImageNet \cite{ImageNet-2014}). Zato možemo posmatrati uslovnu raspodelu $p_{\mathcal{M}}(y|x)$. Marginalna raspodela $p_{\mathcal{M}}(y)$ se dobija kao $\int_{x}p_{\mathcal{M}}(y|x)\text{d}p_g(x)$.
 
-Prema tome, $p_g(y|x)$ treba da odgovara Dirakovoj $\delta$ funkciji, a $p_g(y)$ ravnomernoj raspodeli. Konačno, IS\footnote{eng. \textit{Inception score}} definišemo:
+Prema tome, $p_g(y|x)$ treba da odgovara Dirakovoj $\delta$ funkciji, a $p_g(y)$ ravnomernoj raspodeli. Konačno, IS definišemo:
 \begin{equation}
-\text{IS}(p_g) = \exp(\mathbb{E}_{x \sim p_g}[KL(p_g(y|x)||p_g(y))]),
+\operatorname{IS}(p_g) = \exp(\mathbb{E}_{x \sim p_g}[KL(p_g(y|x)||p_g(y))]),
 \end{equation}
 gde je $KL$ Kulbek-Lajblerova divergencija.
 
@@ -121,22 +125,26 @@ F(\phi(p_r), \phi(p_g)) = \norm{\mu_r - \mu_g} + \text{tr}\left(\Sigma_r + \Sigm
 \end{equation}
 gde je $\text{tr}$ operator traga matrice.
 
-Konačno, definišemo FID$(p_r, p_g)$\footnote{eng. \textit{Fréchet Inception distance}} kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
+Konačno, definišemo $\operatorname{FID}(p_r, p_g)$ kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
 
 \section{Eksperimenti}
-Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i DCGAN-SN \cite{SN-2018}. Za obučavanje je korišćena \texttt{Python} biblioteka \texttt{PyTorch} \cite{PyTorch-2019}. Svi eksperimenti su vršeni upotrebom servisa Google Colaboratory na kom smo imali pristup Nvidia T4 grafičkom procesoru.
+Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i DCGAN-SN \cite{SN-2018}. Za obučavanje je korišćena \texttt{Python} biblioteka \texttt{PyTorch} \cite{PyTorch-2019}. Svi eksperimenti su vršeni upotrebom servisa Google Colaboratory na kom smo imali pristup Nvidia T4 i Nvidia P100 grafičkim procesorima.
+
+CelebA ima $202599$ instanci. U našim eksperimentima je korišćeno približno $90000$, što predstavlja redukciju od oko $55\%$. Ovaj skup podataka se sastoji od slika lica poznatih ličnosti različite boje kože, odeće i dodatnih karakteristika poput naočara, nakita ili šminke.
 
 Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno ne više od 30 epoha. Korišćen je Adam optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
+
+Dužina trajanja epohe je redom $14$ i $5$ minuta na T4 i P100.
 
 \subsection{Uticaj spektralne normalizacije}
 U ovom eksperimentu utvđujemo da li i koliko spektralna normalizacija poboljšava generator.
 
 Pri istim uslovima poredimo rezultate modela sa i bez spektralne normalizacije. Obučavanje vršimo za sve dopustive vrednosti parametra $k$.
 
-\subsection{Uticaj veličine skupa za obučavanje}
-U ovom eksperimentu utvrđujemo da li je inicijalni skup podataka moguće redukovati, a postići uporediv kvalitet modela.
-
-Iz celog skupa podataka, ravnomernom raspodelom uzorkujemo $30\%$, $50\%$, $70\%$ i $90\%$ podataka.
+%\subsection{Uticaj veličine skupa za obučavanje}
+%U ovom eksperimentu utvrđujemo da li je inicijalni skup podataka moguće redukovati, a postići uporediv kvalitet modela.
+%
+%Iz celog skupa podataka, ravnomernom raspodelom uzorkujemo $30\%$, $50\%$, $70\%$ i $90\%$ podataka.
 
 \subsection{Merenje preprilagođenosti}
 U ovom eksperimentu utvrđujemo da li je došlo do preprilagođavanja modela i u kojoj meri.
@@ -197,6 +205,15 @@ Skup podataka $S$ podelimo na dva podskupa $S_{train}$ i $S_{val}$. Metriku koju
 	
 	\bibitem{Adam-2014}
 	Diederik P. Kingma, Jimmy Ba. Adam: A Method for Stochastic Optimization. \textit{arXiv preprint arXiv:1412.6980}, 2014.
+	
+	\bibitem{CGAN-2014}
+	Mehdi Mirza, Simon Osindero. Conditional Generative Adversarial Nets. \textit{arXiv preprint arXiv:1411.1784}, 2014.
+	
+	\bibitem{StyleGAN-2018}
+	Tero Karras, Samuli Laine, Timo Aila. A Style-Based Generator Architecture for Generative Adversarial Networks. \textit{arXiv preprint arXiv:1812.04948}, 2018.
+	
+	\bibitem{StyleGAN2-2019}
+	Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. Analyzing and Improving the Image Quality of StyleGAN. \textit{arXiv preprint arXiv:1912.04958}, 2019.
 \end{thebibliography}
 
 \end{document}

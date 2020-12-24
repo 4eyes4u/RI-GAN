@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.17)  20 DEC 2020 00:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.17)  22 DEC 2020 19:55
 entering extended mode
 **./document.tex
 (document.tex
@@ -617,65 +617,59 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\dj' on input line 37.
+(hyperref)                removing `\dj' on input line 41.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 40.
+(hyperref)                removing `\textasciicaron' on input line 44.
 
 [1
 
 {C:/Users/kosta/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (13.97522pt too wide) in paragraph at lines 84--86
+Overfull \hbox (13.97522pt too wide) in paragraph at lines 88--90
 \OT1/cmr/m/n/12 hodno na-met-nuti do-datne us-love za $\OML/cmm/m/it/12 f$\OT1/
 cmr/m/n/12 . Na os-novu [[]], dis-kri-mi-na-tor obucavamo
  []
 
-[3] [4]
-
-Package hyperref Warning: Composite letter `\textasciicaron+c'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 136.
-
-
-Package hyperref Warning: Composite letter `\textasciicaron+c'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 136.
-
+[3] [4] [5]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\dj' on input line 141.
+(hyperref)                removing `\dj' on input line 149.
 
-[5]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 148.
+(hyperref)                removing `\textasciicaron' on input line 156.
 
 [6]
-Underfull \hbox (badness 1009) in paragraph at lines 181--182
+Underfull \hbox (badness 1009) in paragraph at lines 189--190
 \OT1/cmr/m/n/12 drew Ra-bi-no-vich. Go-ing De-eper with Co-nvo-lu-ti-ons. \OT1/
 cmr/m/it/12 arXiv pre-print
  []
 
 [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 202.
- [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 202.
+Underfull \hbox (badness 2080) in paragraph at lines 213--214
+[]\OT1/cmr/m/n/12 Tero Kar-ras, Sa-muli La-ine, Timo Aila. A Style-Based Ge-ne-
+ra-
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
+[8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
  (document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 202.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 202.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: 1360AD607AB008D82A1AE24F587D706B;784.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 202.
+(rerunfilecheck)             Checksum: BCABC54653B2BBCA78FCC404C8E405B0;699.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
  ) 
 Here is how much of TeX's memory you used:
  12752 strings out of 480930
- 229187 string characters out of 2909547
- 494380 words of memory out of 3000000
- 28362 multiletter control sequences out of 15000+200000
- 544314 words of font info for 71 fonts, out of 3000000 for 9000
+ 229207 string characters out of 2909547
+ 494485 words of memory out of 3000000
+ 28363 multiletter control sequences out of 15000+200000
+ 543968 words of font info for 70 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  50i,8n,48p,697b,844s stack positions out of 5000i,500n,10000p,200000b,50000s
 <D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Pr
@@ -693,12 +687,12 @@ les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX
 /type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmsy8.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmti10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.p
-fb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><D:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (8 pages, 254058 bytes).
+cmti12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.p
+fb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+
+Output written on document.pdf (8 pages, 252443 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
+ 238 PDF objects out of 1000 (max. 8388607)
  51 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 97 words of extra memory for PDF output out of 10000 (max. 10000000)
 
