@@ -16,3 +16,6 @@ CelebA will be downloaded in folder `./data` in case it's not already. Log and i
 * `is.py` - calculating Inception score. See comments in the file for more info.
 * `interpolation.py` - interpolate between given images proper number of times. Saves images to `./data/interpolation`.
 * `inference.py`- generated given number of fake images for provided pre-trained model.
+
+# Checkpoints
+All pretrained models are in `./runs` directory. One can check training parameters in proper `train_config.json` files.

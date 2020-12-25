@@ -1,0 +1,9 @@
+{
+    "num_epochs": 30,
+    "batch_size": 128,
+    "img_size": 64,
+    "n_power_iterations": 2,
+    "checkpoint_freq": 2,
+    "log_freq": 100,
+    "imagery_freq": 100
+}
