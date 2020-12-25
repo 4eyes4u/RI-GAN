@@ -145,10 +145,10 @@ U tablici \ref{table:is-fid} su prikazane vrednosti IS i FID metrika za sve konf
 	\centering
 	\begin{tabular}{SSS} \toprule
 		{model} & {IS} & {FID} \\ \midrule
-		{DCGAN} & \textbf{1.93}  & {$27.41$} \\ 
-		{SN(1)-DCGAN} & {$1.84$} & {$26.00$} \\
-		{SN(2)-DCGAN} & {$1.80$} & {$27.03$} \\
-		{SN(3)-DCGAN} & {$1.80$} & \textbf{23.39} \\ \bottomrule
+		{DCGAN} & \textbf{1.93}  & 27.72 \\ 
+		{SN(1)-DCGAN} & 1.84 & 24.61 \\
+		{SN(2)-DCGAN} & 1.80 & 24.54 \\
+		{SN(3)-DCGAN} & 1.80 & \textbf{23.39} \\ \bottomrule
 	\end{tabular}
 	\caption{Poređenje metrika obučenih modela. SN($k$)-DCGAN označava SN-DCGAN sa vrednošću parametra $k$.}
 	\label{table:is-fid}
@@ -174,12 +174,12 @@ Na osnovu tablice \ref{table:is-fid} primećujemo sledeće:
 \begin{itemize}
 	\item Modeli su praktično identični prema IS metrici. To možemo objasniti izraženom robusnošću Inception modela kao i glavnim nedostakom IS metrike -- ne uzima u obzir stvarne podatke. Za očekivati je da su $\mathcal{M}$ raspodele svih modela veoma slične jer raspodele $p_g$ u odnosu na $\mathcal{M}$ predstavljaju slične raspodele ljudskih lica.
 	
-	\item Modeli se razlikuju prema FID metrici. Budući da FID metrika koristi $p_r$ za očekivati je da postoji razlika u kvalitetu modela ukoliko spektralna normalizacija ima uticaj na obučavanje. Kako je na osnovu pojedinačnih primera jasno da to jeste slučaj, FID metrika to i potvrđuje. SN($3$)-DCGAN očito jeste najbolji model, što svakako i treba da bude imajući u vidu da vrši najprecizniju aproksimaciju.
+	\item Modeli se razlikuju prema FID metrici. Budući da FID metrika koristi $p_r$ za očekivati je da postoji razlika u kvalitetu modela ukoliko spektralna normalizacija ima uticaj na obučavanje. Kako je na osnovu pojedinačnih primera jasno da to jeste slučaj, FID metrika to i potvrđuje. SN($3$)-DCGAN očito jeste najbolji model, što svakako i treba da bude imajući u vidu da vrši najprecizniju aproksimaciju $l_2$ norme.
 	
 	\item Na slici \ref{fig:comparison} su istaknuti nasumično odabrani primeri iz odgovarajućih $p_g$ raspodela. Primetan je definitivan uticaj spektralne normalizacije u obučavanju što je u saglasnosti sa  FID metrikom. Slike koje DCGAN generiše su primetno isprane i lošije od ostalih modela. SN($k$)-DCGAN modeli uglavnom generišu kvalitetne slike, uz poneke izutetke u vidu neprirodnih boja ili distorzije lica.
 \end{itemize}
 
-\begin{figure*}
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
@@ -212,10 +212,10 @@ Na osnovu tablice \ref{table:is-fid} primećujemo sledeće:
 		{{\small SN(3)-DCGAN}}    
 		\label{fig:mean and std of net44}
 	\end{subfigure}
-	\caption[] 
-	{\small Poređenje rezultata nakon obučavanja. SN($k$)-DCGAN označava SN-DCGAN sa vrednošću parametra $k$. Kod DCGAN modela slike deluju isprano i primetno su lošije od ostalih modela. SN($k$)-DCGAN modeli treba dosta da liče, što i jeste slučaj, budući da ih razlikuje samo broj iteracija aproksimacije.} 
+	\caption[]
+	{\small Poređenje rezultata nakon obučavanja. SN($k$)-DCGAN označava SN-DCGAN sa vrednošću parametra $k$.} 
 	\label{fig:comparison}
-\end{figure*}
+\end{figure}
 
 \section{Zaključak}
 Na osnovu prikazanih rezultata uticaj spektralne normalizacije je neupitan. Takođe, pokazuje se da je moguće dobiti konkurentne modele sa redukovanim skupom za obučavanje što i jeste bio cilj ovog rada.
@@ -223,7 +223,25 @@ Na osnovu prikazanih rezultata uticaj spektralne normalizacije je neupitan. Tako
 Interesantno je proveriti uticaj spektralne normalizacije na preprilagođenost modela. Mišljenja smo da spektralna normalizacija ne dovodi do preprilagođavanja jer isključivo utiče na glatkoću mnogostrukosti funkcije greške.
 
 \section*{Dodatak A}
-\textit{Interpolacija}
+Ovde prikazujemo nekoliko primera interpolacije upotrebom SN($3$)-DCGAN modela. Slike su interpolirane upotrebom linearne interpolacije u 16 koraka. Prikazano je ukupno $14$ interpolacija od kojih svaka zauzima $2$ reda.
+
+\centerline{\includegraphics[width=0.9\paperwidth]{inter14.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter20.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter25.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter29.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter53.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter63.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter66.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter115.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter127.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter232.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter292.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter341.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter443.png}}
+\centerline{\includegraphics[width=0.9\paperwidth]{inter486.png}}
+
+\section*{Dodatak B}
+\textit{loss}
 
 \newpage
 \begin{thebibliography}{9}

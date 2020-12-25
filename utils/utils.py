@@ -128,7 +128,7 @@ def get_gan(gan_type: GANType,
         D = Discriminator().to(device)
     elif gan_type == GANType.SN_DCGAN:
         G = SNGenerator().to(device)
-        D = SNDiscriminator().to(device)
+        D = SNDiscriminator(3).to(device)
 
     return G, D
 
