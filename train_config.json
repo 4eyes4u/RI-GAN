@@ -2,7 +2,9 @@
     "num_epochs": 30,
     "batch_size": 128,
     "img_size": 64,
-    "checkpoint_freq": 1,
+    "checkpoint_freq": 2,
     "log_freq": 100,
-    "imagery_freq": 100
+    "imagery_freq": 100,
+    "n_power_iterations": 3,
+    "type": "SN_DCGAN"
 }

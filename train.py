@@ -77,8 +77,12 @@ if __name__ == "__main__":
         args = Namespace(**train_config)
 
     # initializing networks and optimizers
-    G, D = utils.get_gan(GANType.DCGAN, device)
-    G_optim, D_optim = utils.get_optimizers(G, D)
+    if args.type == "DCGAN":
+        G, D = utils.get_gan(GANType.DCGAN, device)
+        G_optim, D_optim = utils.get_optimizers(G, D)
+    elif args.type == "SN_DCGAN":
+        G, D = utils.get_gan(GANType.SN_DCGAN, device, args.n_power_iterations)
+        G_optim, D_optim = utils.get_optimizers(G, D)
 
     # initializing loader for data
     data_loader = utils.get_data_loader(args.batch_size, args.img_size)

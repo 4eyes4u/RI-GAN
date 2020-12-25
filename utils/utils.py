@@ -111,12 +111,14 @@ def get_data_loader(batch_size: int, img_size: int) -> DataLoader:
 
 
 def get_gan(gan_type: GANType,
-            device: torch.device) -> Tuple[nn.Module, nn.Module]:
+            device: torch.device,
+            n_power_iterations: int = None) -> Tuple[nn.Module, nn.Module]:
     r"""Fetching GAN and moving it to proper device.
 
     Args:
         -gan_type (GANType): DCGAN or SN-DCGAN.
         -device (torch.device): On which device (eg. GPU) to move models.
+        -n_power_iterations (int): Number of iterations for l_2 matrix norm.
 
     Returns:
         -G (nn.Module): Generator.
@@ -128,7 +130,7 @@ def get_gan(gan_type: GANType,
         D = Discriminator().to(device)
     elif gan_type == GANType.SN_DCGAN:
         G = SNGenerator().to(device)
-        D = SNDiscriminator(3).to(device)
+        D = SNDiscriminator(n_power_iterations).to(device)
 
     return G, D
 
