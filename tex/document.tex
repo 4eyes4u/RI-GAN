@@ -10,6 +10,7 @@
 \usepackage{multicol}
 \usepackage{amsfonts}
 
+\usepackage{xcolor}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -24,22 +25,24 @@ linkcolor=red
 ]{hyperref}
 
 \newcommand{\R}{$ {\rm I\!R}$}
+\definecolor{tb-blue}{HTML}{0077bb}
+\definecolor{tb-red}{HTML}{cc3311}
 
 \begin{document}
 \date{}
 \title{Redukovano GAN obučavanje}
-\author{Kosta Grujčić, Momčilo Knežević}
+\author{Kosta Grujčić \hspace{25pt} Momčilo Knežević}
 \affil{Matematički fakultet}
 \maketitle
 
 \begin{abstract}
-Generativne suparničke mreže su postale veoma popularan generativan model naročito oblasti u računarskog vida. Nastale su mnogobrojne arhitekture, posebno dizajnirane za različite domene primene. Problem sa ovom vrstom modela je otežana konvergencija, izražena osetljivost na hiperparametre i veliki broj instanci skupa podataka nad kojim se vrši obučavanje. Odlučili smo da proverimo ovu tezu obučavajući DCGAN model nad redukovanim CelebA skupom podataka uvodeći dodatne uslove koji pomažu boljoj konvergenciji.
+Generativne suparničke mreže su postale veoma popularan generativan model naročito u oblasti računarskog vida. Nastale su mnogobrojne arhitekture, posebno dizajnirane za različite domene primene. Problem sa ovom vrstom modela je otežana konvergencija, izražena osetljivost na hiperparametre i potreba za velikim skupom podataka za obučavanje. Odlučili smo da proverimo ovu tezu obučavajući DCGAN model nad redukovanim CelebA skupom podataka uvodeći dodatne uslove koji pomažu boljoj konvergenciji.
 \end{abstract}
 
 \section{Uvod}
 Generativne suparničke mreže (GAN) \cite{GAN-2014} uživaju veliku popularnost kao generativni modeli. Nalaze uspešnu primenu u različitim domenima. Dizajnirane su mnogobrojne arhitekture poput \cite{DCGAN-2016}, \cite{WGAN-2017}, \cite{CGAN-2014}, \cite{StyleGAN-2018}, \cite{StyleGAN2-2019}. Zajednička osobina većine GAN arhitektura je otežana konvergencija usled neograničenog gradijenta, te se nastoji uvođenju restrikcija \cite{Lipschitz-2017}. Usled navedenog problema, potrebno je vršiti iscrpnu pretragu hiperparametara i koristiti veliki skup podataka za obučavanje.
 
-Da bi ispitali kojoj u je meri ovo izraženo, izmenićemo poznatu DCGAN arhitekturu uvodeći spektralnu normalizaciju \cite{SN-2018} i redukujući skup podataka CelebA \cite{CelebA-2015}. Obučavanje kvantifikujemo poznatim metrikama IS (eng. \textit{inception score}) \cite{IS-2016} i FID (eng. \textit{Fréchet Inception distance}) \cite{FID-2017}. Očekujemo da je moguče dobiti reprezentativno obučen model upotrebom spektralne normalizacije na redukovanom skupu podataka.
+Da bi ispitali u kojoj je meri ovo izraženo, izmenićemo poznatu DCGAN arhitekturu uvodeći spektralnu normalizaciju \cite{SN-2018} i redukujući skup podataka CelebA \cite{CelebA-2015}. Obučavanje kvantifikujemo poznatim metrikama IS (eng. \textit{inception score}) \cite{IS-2016} i FID (eng. \textit{Fréchet Inception distance}) \cite{FID-2017}. Očekujemo da je moguče dobiti reprezentativno obučen model upotrebom spektralne normalizacije na redukovanom skupu podataka.
 
 \section{Pređašnji rad}
 U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju koristimo i metrika kojima ćemo kvantifikovati obučenost modela.
@@ -64,6 +67,7 @@ U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju korist
 	U početnim iteracijama obučavanja može doći do zasićenja gradijenata \cite{GAN-2014}. Usled lošeg generatora, diskriminator je u stanju vrlo precizno da razlikuje lažne i prave podatke. S tim u vezi, optimizacija iz formule \ref{eq:GANClassic} se može zapisati u numerički pogodnijem obliku:
 	\begin{equation}
 	\min_{G}\max_{D}V(D, G) = \mathbb{E}_{x \sim p_r}[\log D(x)] - \mathbb{E}_{z \sim p_z}[\log D(G(z))].
+	\label{eq:GAN_BCE}
 	\end{equation}
 
 \subsection{DCGAN}
@@ -72,6 +76,8 @@ Generativne suparničke mreže ne podrazumevaju nikakav konkretan model ni za ge
 Prvo ćemo objasniti strukturu diskriminatora ove arhitekture. Sastoji se $5$ blokova koji vrše decimaciju prostornih dimenzija ulaznog tenzora za faktor $2$. Svaki blok se sastoji od konvolutivnog sloja praćenog BN slojem \cite{BN-2015}, osim u poslednjem bloku gde ne postoji sloj normalizacije. Aktivaciona funkcija u svakom konvolutivnom sloju je ReLU \cite{ReLU-2010}, osim u poslednjem gde je sigmoid. Konvolutivni slojevi imaju redom $128, 256, 512, 1024, 1$ kanala. Decimacija je postignuta postavljanjem pomeraja konvolutivnog sloja na $2$. Ulazni tenzor je trokanalna RGB slika, koja se prethodno normalizuje sa $\hat{\mu}=0.5$ i $\hat{\sigma}=0.5$.
 
 Generator u odnosu na diskriminator ima inverznu strukturu. Koristi $4$ ekspanziona bloka i transponovane konvolutivne slojeve umesto običnih. Broj kanala u konvolutivnim slojevima je redom $512, 256, 128, 3$. Pre nego što se latentni šum prosledi prvom konvolutivnom sloju, vrši se projektovanje potpuno povezanim slojem u prostor $\R^{1024 \times 4 \times 4}$. Aktivaciona funkcija poslednjeg sloja je hiperbolički tangens.
+
+Funkcija greške je binarna unakrsna entropija. Iz formule \ref{eq:GAN_BCE} se vrlo lako dobija oblik funkcije greške za obe komponente.
 
 \subsection{Lipšic neprekidnost generatora}
 Pretpostavimo da je diskriminator $D$ neuronska mreža koja za ulaz $x\in \mathcal{X}$ ima sledeći oblik:
@@ -223,7 +229,7 @@ Na osnovu prikazanih rezultata uticaj spektralne normalizacije je neupitan. Tako
 Interesantno je proveriti uticaj spektralne normalizacije na preprilagođenost modela. Mišljenja smo da spektralna normalizacija ne dovodi do preprilagođavanja jer isključivo utiče na glatkoću mnogostrukosti funkcije greške.
 
 \section*{Dodatak A}
-Ovde prikazujemo nekoliko primera interpolacije upotrebom SN($3$)-DCGAN modela. Slike su interpolirane upotrebom linearne interpolacije u 16 koraka. Prikazano je ukupno $14$ interpolacija od kojih svaka zauzima $2$ reda.
+Ovde prikazujemo nekoliko primera interpolacije upotrebom SN($3$)-DCGAN modela. Slike su interpolirane upotrebom linearne interpolacije u 16 koraka. Prikazano je ukupno $14$ interpolacija od kojih svaka zauzima $2$ reda. Slike su izvorno rezolucije $64 \times 64$, ali su ovde prikazane u rezoluciji $128 \times 128$ kao rezultat bilinearne interpolacije.
 
 \centerline{\includegraphics[width=0.9\paperwidth]{inter14.png}}
 \centerline{\includegraphics[width=0.9\paperwidth]{inter20.png}}
@@ -241,7 +247,36 @@ Ovde prikazujemo nekoliko primera interpolacije upotrebom SN($3$)-DCGAN modela. 
 \centerline{\includegraphics[width=0.9\paperwidth]{inter486.png}}
 
 \section*{Dodatak B}
-\textit{loss}
+Ovde prikazujemo funkciju greške svih modela tokom obučavanja. Da bi prikazali usrednjenu funkciju greške, grafici su čuvani u \texttt{TensorBoard} formatu i ufinjeni faktorom $0.85$. Možemo primetiti sledeće:
+\begin{itemize}
+	\item U slučaju DCGAN modela brzo dolazi do stagnacije diskriminatora, čija je funkcija greške približno $0$. Tada gradijent iz \ref{eq:grad} praktično ne postoji i generator nije u stanju da napreduje.
+	\item Funkcija greške diskriminatora u slučaju SN($k$)-DCGAN modela evidentno opada tokom treninga, ali na asimptotski povoljniji način. Usled takvog ponašanja diskriminatora gradijent iz \ref{eq:grad} neće ni nestati ni eksplodirati te se generator daleko bolja obučava.
+	\item Bez obzira da li se spektralna normalizacija upotrebljava ili ne, primetan je značaj šum u obučavanju.
+\end{itemize}
+
+\begin{figure}[H]
+	\centerline{\includegraphics[width=1.5\linewidth]{DCGAN_loss.pdf}}
+	\caption{Funkcija greške DCGAN modela. \textcolor{tb-blue}{Generator} i  \textcolor{tb-red}{Diskriminator}.}
+	\label{fig:DCGAN_loss}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[width=1.5\linewidth]{SN(1)-DCGAN_loss.pdf}}
+	\caption{Funkcija greške SN(1)-DCGAN modela. \textcolor{tb-blue}{Generator} i  \textcolor{tb-red}{Diskriminator}.}
+	\label{fig:SN(1)-DCGAN_loss}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[width=1.5\linewidth]{SN(2)-DCGAN_loss.pdf}}
+	\caption{Funkcija greške SN(2)-DCGAN modela. \textcolor{tb-blue}{Generator} i  \textcolor{tb-red}{Diskriminator}.}
+	\label{fig:SN(2)-DCGAN_loss}
+\end{figure}
+\begin{figure}[H]
+	\centerline{\includegraphics[width=1.5\linewidth]{SN(3)-DCGAN_loss.pdf}}
+	\caption{Funkcija greške SN(3)-DCGAN modela. \textcolor{tb-blue}{Generator} i  \textcolor{tb-red}{Diskriminator}.}
+	\label{fig:SN(3)-DCGAN_loss}
+\end{figure}
+%\centerline{\includegraphics[width=1.5\linewidth]{SN(1)-DCGAN_loss.pdf}}
+%\centerline{\includegraphics[width=1.5\linewidth]{SN(2)-DCGAN_loss.pdf}}
+%\centerline{\includegraphics[width=1.5\linewidth]{SN(3)-DCGAN_loss.pdf}}
 
 \newpage
 \begin{thebibliography}{9}
