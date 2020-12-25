@@ -48,7 +48,7 @@ def inception_score(gan_loader: DataLoader, batch_size: int) -> float:
     # marginalizing all pyx
     py = np.mean(preds, axis=0)
 
-    scores = np.zeros((n_classes, ))
+    scores = np.zeros((n_imgs, ))
     for i, pyx in enumerate(preds):
         scores[i] = entropy(pyx, py)
 

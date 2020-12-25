@@ -5,20 +5,20 @@ import zipfile
 import logging
 import shutil
 
-from .constants import DATA_DIR, LATENT_SPACE_DIM
+from typing import Tuple
 
 from torch import Tensor
 from torch.optim import Optimizer
 from torch.hub import download_url_to_file
 from torch.utils.data import DataLoader
 from torch.optim import Adam
-
 from torchvision import transforms, datasets
 from torchvision.datasets import ImageFolder
-
-from typing import Tuple
-
-from models.dcgan import Generator, Discriminator
+from .constants import *
+from models.dcgan import Generator
+from models.dcgan import Discriminator
+from models.sn_dcgan import Generator as SNGenerator
+from models.sn_dcgan import Discriminator as SNDiscriminator
 
 
 def prepare_celeba(celeba_path: str, img_size: int):
@@ -110,10 +110,12 @@ def get_data_loader(batch_size: int, img_size: int) -> DataLoader:
     return celeba_data_loader
 
 
-def get_gan(device: torch.device) -> Tuple[nn.Module, nn.Module]:
+def get_gan(gan_type: GANType,
+            device: torch.device) -> Tuple[nn.Module, nn.Module]:
     r"""Fetching GAN and moving it to proper device.
 
     Args:
+        -gan_type (GANType): DCGAN or SN-DCGAN.
         -device (torch.device): On which device (eg. GPU) to move models.
 
     Returns:
@@ -121,8 +123,12 @@ def get_gan(device: torch.device) -> Tuple[nn.Module, nn.Module]:
         -D (nn.Module): Discriminator.
     """
 
-    G = Generator().to(device)
-    D = Discriminator().to(device)
+    if gan_type == GANType.DCGAN:
+        G = Generator().to(device)
+        D = Discriminator().to(device)
+    elif gan_type == GANType.SN_DCGAN:
+        G = SNGenerator().to(device)
+        D = SNDiscriminator().to(device)
 
     return G, D
 

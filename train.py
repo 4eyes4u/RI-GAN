@@ -7,11 +7,12 @@ import logging
 
 from argparse import Namespace
 
+import utils.utils as utils
 import numpy as np
 import torch.nn as nn
-from torchvision.utils import save_image, make_grid
-import utils.utils as utils
 
+from torchvision.utils import save_image, make_grid
+from utils.constants import GANType
 from torch.utils.tensorboard import SummaryWriter
 from models.dcgan import Generator, Discriminator
 
@@ -76,7 +77,7 @@ if __name__ == "__main__":
         args = Namespace(**train_config)
 
     # initializing networks and optimizers
-    G, D = utils.get_gan(device)
+    G, D = utils.get_gan(GANType.DCGAN, device)
     G_optim, D_optim = utils.get_optimizers(G, D)
 
     # initializing loader for data

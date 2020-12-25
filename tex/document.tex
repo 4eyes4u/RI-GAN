@@ -10,7 +10,10 @@
 \usepackage{multicol}
 \usepackage{amsfonts}
 
-\usepackage{subfig}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{mwe}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{siunitx}
@@ -36,7 +39,7 @@ Generativne suparničke mreže su postale veoma popularan generativan model naro
 \section{Uvod}
 Generativne suparničke mreže (GAN) \cite{GAN-2014} uživaju veliku popularnost kao generativni modeli. Nalaze uspešnu primenu u različitim domenima. Dizajnirane su mnogobrojne arhitekture poput \cite{DCGAN-2016}, \cite{WGAN-2017}, \cite{CGAN-2014}, \cite{StyleGAN-2018}, \cite{StyleGAN2-2019}. Zajednička osobina većine GAN arhitektura je otežana konvergencija usled neograničenog gradijenta, te se nastoji uvođenju restrikcija \cite{Lipschitz-2017}. Usled navedenog problema, potrebno je vršiti iscrpnu pretragu hiperparametara i koristiti veliki skup podataka za obučavanje.
 
-Da bi ispitali kojoj u je meri ovo izraženo, izmenićemo poznatu DCGAN arhitekturu uvodeći spektralnu normalizaciju \cite{SN-2018} i redukujući skup podataka CelebA \cite{CelebA-2015}. Takođe, proverićemo da li spektralna normalizacija ima kontraefekat -- preprilagođavanje. Obučavanje kvantifikujemo poznatim metrikama IS (eng. \textit{inception score}) \cite{IS-2016} i FID (eng. \textit{Fréchet Inception distance}) \cite{FID-2017}.
+Da bi ispitali kojoj u je meri ovo izraženo, izmenićemo poznatu DCGAN arhitekturu uvodeći spektralnu normalizaciju \cite{SN-2018} i redukujući skup podataka CelebA \cite{CelebA-2015}. Obučavanje kvantifikujemo poznatim metrikama IS (eng. \textit{inception score}) \cite{IS-2016} i FID (eng. \textit{Fréchet Inception distance}) \cite{FID-2017}. Očekujemo da je moguče dobiti reprezentativno obučen model upotrebom spektralne normalizacije na redukovanom skupu podataka.
 
 \section{Pređašnji rad}
 U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju koristimo i metrika kojima ćemo kvantifikovati obučenost modela.
@@ -128,32 +131,99 @@ gde je $\text{tr}$ operator traga matrice.
 Konačno, definišemo $\operatorname{FID}(p_r, p_g)$ kao $F(\phi(p_r), \phi(p_g))$ \cite{FID-2017}. Primetimo da za razliku od IS, FID koristi $p_r$.
 
 \section{Eksperimenti}
-Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i DCGAN-SN \cite{SN-2018}. Za obučavanje je korišćena \texttt{Python} biblioteka \texttt{PyTorch} \cite{PyTorch-2019}. Svi eksperimenti su vršeni upotrebom servisa Google Colaboratory na kom smo imali pristup Nvidia T4 i Nvidia P100 grafičkim procesorima.
+Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i SN-DCGAN \cite{SN-2018}. Za obučavanje je korišćena \texttt{Python} biblioteka \texttt{PyTorch} \cite{PyTorch-2019}. Svi eksperimenti su vršeni upotrebom servisa Google Colaboratory na kom smo imali pristup Nvidia T4 i Nvidia P100 grafičkim procesorima. Implementacija se na nalazi na GitHub repozitorijumu\footnote{https://github.com/4eyes4u/RI-GAN}.
 
-CelebA ima $202599$ instanci. U našim eksperimentima je korišćeno približno $90000$, što predstavlja redukciju od oko $55\%$. Ovaj skup podataka se sastoji od slika lica poznatih ličnosti različite boje kože, odeće i dodatnih karakteristika poput naočara, nakita ili šminke.
+Skup CelebA ima $202599$ instanci. U našim eksperimentima je korišćeno $89931$, što predstavlja redukciju od oko $55\%$. Ovaj skup podataka se sastoji od slika lica poznatih ličnosti različite boje kože, odeće i dodatnih karakteristika poput naočara, nakita ili šminke.
 
-Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno ne više od 30 epoha. Korišćen je Adam optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
+Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno u trajanju od 30 epoha. Korišćen je Adam optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
 
 Dužina trajanja epohe je redom $14$ i $5$ minuta na T4 i P100.
 
-\subsection{Uticaj spektralne normalizacije}
-U ovom eksperimentu utvđujemo da li i koliko spektralna normalizacija poboljšava generator.
+U tablici \ref{table:is-fid} su prikazane vrednosti IS i FID metrika za sve konfiguracije.
 
-Pri istim uslovima poredimo rezultate modela sa i bez spektralne normalizacije. Obučavanje vršimo za sve dopustive vrednosti parametra $k$.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{SSS} \toprule
+		{model} & {IS} & {FID} \\ \midrule
+		{DCGAN} & \textbf{1.93}  & {$27.41$} \\ 
+		{SN(1)-DCGAN} & {$1.84$} & {$26.00$} \\
+		{SN(2)-DCGAN} & {$1.80$} & {$27.03$} \\
+		{SN(3)-DCGAN} & {$1.80$} & \textbf{23.39} \\ \bottomrule
+	\end{tabular}
+	\caption{Poređenje metrika obučenih modela. SN($k$)-DCGAN označava SN-DCGAN sa vrednošću parametra $k$.}
+	\label{table:is-fid}
+\end{table}
+
+%\subsection{Uticaj spektralne normalizacije}
+%U ovom eksperimentu utvđujemo da li i koliko spektralna normalizacija poboljšava generator.
+%
+%Pri istim uslovima poredimo rezultate modela sa i bez spektralne normalizacije. Obučavanje vršimo za sve dopustive vrednosti parametra $k$.
 
 %\subsection{Uticaj veličine skupa za obučavanje}
 %U ovom eksperimentu utvrđujemo da li je inicijalni skup podataka moguće redukovati, a postići uporediv kvalitet modela.
 %
 %Iz celog skupa podataka, ravnomernom raspodelom uzorkujemo $30\%$, $50\%$, $70\%$ i $90\%$ podataka.
 
-\subsection{Merenje preprilagođenosti}
-U ovom eksperimentu utvrđujemo da li je došlo do preprilagođavanja modela i u kojoj meri.
-
-Skup podataka $S$ podelimo na dva podskupa $S_{train}$ i $S_{val}$. Metriku koju koristimo za ocenu kvaliteta obučenosti modela označimo sa $d$. Skup slika generisanih od strane generatora označimo sa $S_g$. Model obučavamo nad $S_{train}$, dok se $S_{val}$ ne koristi tokom obučavanja. Ukoliko model dobro generalizuje, tada $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 1$, dok u suprotnom $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 0$. Skup $S$ delimo u razmeri $30:70$ i $10:90$.
+%\subsection{Merenje preprilagođenosti}
+%U ovom eksperimentu utvrđujemo da li je došlo do preprilagođavanja modela i u kojoj meri.
+%
+%Skup podataka $S$ podelimo na dva podskupa $S_{train}$ i $S_{val}$. Metriku koju koristimo za ocenu kvaliteta obučenosti modela označimo sa $d$. Skup slika generisanih od strane generatora označimo sa $S_g$. Model obučavamo nad $S_{train}$, dok se $S_{val}$ ne koristi tokom obučavanja. Ukoliko model dobro generalizuje, tada $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 1$, dok u suprotnom $\frac{d(S_{train}, S_g)}{d(S_{val}, S_g)} \rightarrow 0$. Skup $S$ delimo u razmeri $30:70$ i $10:90$.
 
 \section{Rezultati}
+Na osnovu tablice \ref{table:is-fid} primećujemo sledeće:
+\begin{itemize}
+	\item Modeli su praktično identični prema IS metrici. To možemo objasniti izraženom robusnošću Inception modela kao i glavnim nedostakom IS metrike -- ne uzima u obzir stvarne podatke. Za očekivati je da su $\mathcal{M}$ raspodele svih modela veoma slične jer raspodele $p_g$ u odnosu na $\mathcal{M}$ predstavljaju slične raspodele ljudskih lica.
+	
+	\item Modeli se razlikuju prema FID metrici. Budući da FID metrika koristi $p_r$ za očekivati je da postoji razlika u kvalitetu modela ukoliko spektralna normalizacija ima uticaj na obučavanje. Kako je na osnovu pojedinačnih primera jasno da to jeste slučaj, FID metrika to i potvrđuje. SN($3$)-DCGAN očito jeste najbolji model, što svakako i treba da bude imajući u vidu da vrši najprecizniju aproksimaciju.
+	
+	\item Na slici \ref{fig:comparison} su istaknuti nasumično odabrani primeri iz odgovarajućih $p_g$ raspodela. Primetan je definitivan uticaj spektralne normalizacije u obučavanju što je u saglasnosti sa  FID metrikom. Slike koje DCGAN generiše su primetno isprane i lošije od ostalih modela. SN($k$)-DCGAN modeli uglavnom generišu kvalitetne slike, uz poneke izutetke u vidu neprirodnih boja ili distorzije lica.
+\end{itemize}
+
+\begin{figure*}
+	\centering
+	\begin{subfigure}[b]{0.475\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{DCGAN.png}
+		\caption[Network2]%
+		{{\small DCGAN}}    
+		\label{fig:mean and std of net14}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.475\textwidth}  
+		\centering 
+		\includegraphics[width=\textwidth]{SN(1)-DCGAN.png}
+		\caption[]%
+		{{\small SN(1)-DCGAN}}    
+		\label{fig:mean and std of net24}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[b]{0.475\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{SN(2)-DCGAN.png}
+		\caption[]%
+		{{\small SN(2)-DCGAN}}    
+		\label{fig:mean and std of net34}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.475\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{SN(3)-DCGAN.png}
+		\caption[]%
+		{{\small SN(3)-DCGAN}}    
+		\label{fig:mean and std of net44}
+	\end{subfigure}
+	\caption[] 
+	{\small Poređenje rezultata nakon obučavanja. SN($k$)-DCGAN označava SN-DCGAN sa vrednošću parametra $k$. Kod DCGAN modela slike deluju isprano i primetno su lošije od ostalih modela. SN($k$)-DCGAN modeli treba dosta da liče, što i jeste slučaj, budući da ih razlikuje samo broj iteracija aproksimacije.} 
+	\label{fig:comparison}
+\end{figure*}
 
 \section{Zaključak}
+Na osnovu prikazanih rezultata uticaj spektralne normalizacije je neupitan. Takođe, pokazuje se da je moguće dobiti konkurentne modele sa redukovanim skupom za obučavanje što i jeste bio cilj ovog rada.
+
+Interesantno je proveriti uticaj spektralne normalizacije na preprilagođenost modela. Mišljenja smo da spektralna normalizacija ne dovodi do preprilagođavanja jer isključivo utiče na glatkoću mnogostrukosti funkcije greške.
+
+\section*{Dodatak A}
+\textit{Interpolacija}
 
 \newpage
 \begin{thebibliography}{9}

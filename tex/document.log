@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.17)  24 DEC 2020 18:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.17)  25 DEC 2020 02:42
 entering extended mode
 **./document.tex
 (document.tex
@@ -256,8 +256,16 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \colbreak@box=\box94
 \mc@col@check@num=\count275
 )
-(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/subfig\subfig.sty
-Package: subfig 2005/06/28 ver: 1.3 subfig package
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count276
+\float@exts=\toks22
+\float@box=\box95
+\@float@everytoks=\toks23
+\@floatcapt=\box96
+)
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/caption\subcaption.sty
+Package: subcaption 2020/01/22 v1.3d Sub-captions (AR)
 
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/caption\caption.sty
 Package: caption 2020/01/03 v3.4h Customizing captions (AR)
@@ -274,123 +282,139 @@ Package caption3 Info: TeX engine: e-TeX on input line 61.
 \caption@hangindent=\dimen166
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count276
-\c@continuedfloat=\count277
+\c@caption@flags=\count277
+\c@continuedfloat=\count278
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 )
-\c@KVtest=\count278
-\sf@farskip=\skip56
-\sf@captopadj=\dimen167
-\sf@capskip=\skip57
-\sf@nearskip=\skip58
 \c@subfigure=\count279
-\c@subfigure@save=\count280
-\c@lofdepth=\count281
-\c@subtable=\count282
-\c@subtable@save=\count283
-\c@lotdepth=\count284
-\sf@top=\skip59
-\sf@bottom=\skip60
+\c@subtable=\count280
 )
-(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/float\float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count285
-\float@exts=\toks22
-\float@box=\box95
-\@float@everytoks=\toks23
-\@floatcapt=\box96
-)
-(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/booktabs\booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen168
-\lightrulewidth=\dimen169
-\cmidrulewidth=\dimen170
-\belowrulesep=\dimen171
-\belowbottomsep=\dimen172
-\aboverulesep=\dimen173
-\abovetopsep=\dimen174
-\cmidrulesep=\dimen175
-\cmidrulekern=\dimen176
-\defaultaddspace=\dimen177
-\@cmidla=\count286
-\@cmidlb=\count287
-\@aboverulesep=\dimen178
-\@belowrulesep=\dimen179
-\@thisruleclass=\count288
-\@lastruleclass=\count289
-\@thisrulewidth=\dimen180
-)
-(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/siunitx\siunitx.sty
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/mwe\mwe.sty
+Package: mwe 2018/03/30 v0.5 Package to support minimal working examples (MWE)
+
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/lipsum\lipsum.sty
 ("D:\Program Files\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty"
 Package: expl3 2020-04-06 L3 programming layer (loader) 
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/l3backend\l3backend-pdfmode.def"
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count290
+\l__kernel_color_stack_int=\count281
 \l__pdf_internal_box=\box97
 ))
 ("D:\Program Files\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse.sty"
 Package: xparse 2020-03-06 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count291
-\g__xparse_grabber_int=\count292
-\l__xparse_m_args_int=\count293
-\l__xparse_v_nesting_int=\count294
+\l__xparse_current_arg_int=\count282
+\g__xparse_grabber_int=\count283
+\l__xparse_m_args_int=\count284
+\l__xparse_v_nesting_int=\count285
 )
+Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
+
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/lipsum\lipsum.ltd.tex
+File: lipsum.ltd.tex 2019/01/02 v2.2 The Lorem ipsum dummy text
+))
+("D:\Program Files\MiKTeX 2.9\tex/latex/blindtext\blindtext.sty"
+Package: blindtext 2012/01/06 V2.0 blindtext-Package
+
+("D:\Program Files\MiKTeX 2.9\tex/latex/tools\xspace.sty"
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+\c@blindtext=\count286
+\c@Blindtext=\count287
+\c@blind@countparstart=\count288
+\blind@countxx=\count289
+\blindtext@numBlindtext=\count290
+\blind@countyy=\count291
+\c@blindlist=\count292
+\c@blindlistlevel=\count293
+\c@blindlist@level=\count294
+\blind@listitem=\count295
+\c@blind@listcount=\count296
+\c@blind@levelcount=\count297
+\blind@mathformula=\count298
+\blind@Mathformula=\count299
+\c@blind@randomcount=\count300
+\c@blind@randommax=\count301
+\c@blind@pangramcount=\count302
+\c@blind@pangrammax=\count303
+))
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen167
+\lightrulewidth=\dimen168
+\cmidrulewidth=\dimen169
+\belowrulesep=\dimen170
+\belowbottomsep=\dimen171
+\aboverulesep=\dimen172
+\abovetopsep=\dimen173
+\cmidrulesep=\dimen174
+\cmidrulekern=\dimen175
+\defaultaddspace=\dimen176
+\@cmidla=\count304
+\@cmidlb=\count305
+\@aboverulesep=\dimen177
+\@belowrulesep=\dimen178
+\@thisruleclass=\count306
+\@lastruleclass=\count307
+\@thisrulewidth=\dimen179
+)
+(C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/siunitx\siunitx.sty
 Package: siunitx 2020/02/25 v2.8b A comprehensive (SI) units package
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/tools\array.sty"
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen181
+\col@sep=\dimen180
 \ar@mcellbox=\box98
-\extrarowheight=\dimen182
+\extrarowheight=\dimen181
 \NC@list=\toks24
-\extratabsurround=\skip61
-\backup@length=\skip62
+\extratabsurround=\skip56
+\backup@length=\skip57
 \ar@cellbox=\box99
 )
 ("D:\Program Files\MiKTeX 2.9\tex/latex/l3packages/l3keys2e\l3keys2e.sty"
 Package: l3keys2e 2020-03-06 LaTeX2e option processing using LaTeX3 keys
 )
 \l__siunitx_tmp_box=\box100
-\l__siunitx_tmp_dim=\dimen183
-\l__siunitx_tmp_int=\count295
-\l__siunitx_number_mantissa_length_int=\count296
-\l__siunitx_number_uncert_length_int=\count297
-\l__siunitx_round_int=\count298
-\l__siunitx_process_decimal_int=\count299
-\l__siunitx_process_uncertainty_int=\count300
-\l__siunitx_process_fixed_int=\count301
-\l__siunitx_process_integer_min_int=\count302
-\l__siunitx_process_precision_int=\count303
-\l__siunitx_group_min_int=\count304
+\l__siunitx_tmp_dim=\dimen182
+\l__siunitx_tmp_int=\count308
+\l__siunitx_number_mantissa_length_int=\count309
+\l__siunitx_number_uncert_length_int=\count310
+\l__siunitx_round_int=\count311
+\l__siunitx_process_decimal_int=\count312
+\l__siunitx_process_uncertainty_int=\count313
+\l__siunitx_process_fixed_int=\count314
+\l__siunitx_process_integer_min_int=\count315
+\l__siunitx_process_precision_int=\count316
+\l__siunitx_group_min_int=\count317
 \l__siunitx_angle_marker_box=\box101
 \l__siunitx_angle_unit_box=\box102
-\l__siunitx_angle_marker_dim=\dimen184
-\l__siunitx_angle_unit_dim=\dimen185
-\l__siunitx_unit_int=\count305
-\l__siunitx_unit_denominator_int=\count306
-\l__siunitx_unit_numerator_int=\count307
-\l__siunitx_unit_prefix_int=\count308
-\l__siunitx_unit_prefix_base_int=\count309
-\l__siunitx_unit_prefix_gram_int=\count310
-\l__siunitx_number_product_int=\count311
-\c__siunitx_one_fill_skip=\skip63
-\l__siunitx_table_unit_align_skip=\skip64
-\l__siunitx_table_exponent_dim=\dimen186
-\l__siunitx_table_integer_dim=\dimen187
-\l__siunitx_table_mantissa_dim=\dimen188
-\l__siunitx_table_marker_dim=\dimen189
-\l__siunitx_table_result_dim=\dimen190
-\l__siunitx_table_uncert_dim=\dimen191
-\l__siunitx_table_fill_pre_dim=\dimen192
-\l__siunitx_table_fill_post_dim=\dimen193
-\l__siunitx_table_fill_mid_dim=\dimen194
+\l__siunitx_angle_marker_dim=\dimen183
+\l__siunitx_angle_unit_dim=\dimen184
+\l__siunitx_unit_int=\count318
+\l__siunitx_unit_denominator_int=\count319
+\l__siunitx_unit_numerator_int=\count320
+\l__siunitx_unit_prefix_int=\count321
+\l__siunitx_unit_prefix_base_int=\count322
+\l__siunitx_unit_prefix_gram_int=\count323
+\l__siunitx_number_product_int=\count324
+\c__siunitx_one_fill_skip=\skip58
+\l__siunitx_table_unit_align_skip=\skip59
+\l__siunitx_table_exponent_dim=\dimen185
+\l__siunitx_table_integer_dim=\dimen186
+\l__siunitx_table_mantissa_dim=\dimen187
+\l__siunitx_table_marker_dim=\dimen188
+\l__siunitx_table_result_dim=\dimen189
+\l__siunitx_table_uncert_dim=\dimen190
+\l__siunitx_table_fill_pre_dim=\dimen191
+\l__siunitx_table_fill_post_dim=\dimen192
+\l__siunitx_table_fill_mid_dim=\dimen193
 \l__siunitx_table_pre_box=\box103
 \l__siunitx_table_post_box=\box104
 \l__siunitx_table_mantissa_box=\box105
 \l__siunitx_table_result_box=\box106
-\l__siunitx_table_number_align_skip=\skip65
-\l__siunitx_table_text_align_skip=\skip66
+\l__siunitx_table_number_align_skip=\skip60
+\l__siunitx_table_text_align_skip=\skip61
 
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/translator\translator.sty
 Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
@@ -435,9 +459,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 )
-\@linkdim=\dimen195
-\Hy@linkcounter=\count312
-\Hy@pagecounter=\count313
+\@linkdim=\dimen194
+\Hy@linkcounter=\count325
+\Hy@pagecounter=\count326
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/hyperref\pd1enc.def"
 File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
@@ -450,7 +474,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count314
+\Hy@SavedSpaceFactor=\count327
 Package hyperref Info: Option `colorlinks' set `true' on input line 4421.
 Package hyperref Info: Hyper figures OFF on input line 4547.
 Package hyperref Info: Link nesting OFF on input line 4552.
@@ -459,14 +483,14 @@ Package hyperref Info: Plain pages OFF on input line 4562.
 Package hyperref Info: Backreferencing OFF on input line 4567.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4800.
-\c@Hy@tempcnt=\count315
+\c@Hy@tempcnt=\count328
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/url\url.sty"
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5159.
-\XeTeXLinkMargin=\dimen196
+\XeTeXLinkMargin=\dimen195
 
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -476,9 +500,9 @@ y
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count316
-\Field@Width=\dimen197
-\Fld@charsize=\dimen198
+\Fld@menulength=\count329
+\Field@Width=\dimen196
+\Fld@charsize=\dimen197
 Package hyperref Info: Hyper figures OFF on input line 6430.
 Package hyperref Info: Link nesting OFF on input line 6435.
 Package hyperref Info: Hyper index ON on input line 6438.
@@ -492,9 +516,9 @@ LaTeX Info: Redefining \pageref on input line 6504.
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/generic/atbegshi\atbegshi.sty
 Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
 )
-\Hy@abspage=\count317
-\c@Item=\count318
-\c@Hfootnote=\count319
+\Hy@abspage=\count330
+\c@Item=\count331
+\c@Hfootnote=\count332
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -505,8 +529,8 @@ File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
 )
-\Fld@listcount=\count320
-\c@bookmark@seq@number=\count321
+\Fld@listcount=\count333
+\c@bookmark@seq@number=\count334
 
 (C:\Users\kosta\AppData\Roaming\MiKTeX\2.9\tex/latex/rerunfilecheck\rerunfilech
 eck.sty
@@ -519,40 +543,40 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
-\Hy@SectionHShift=\skip67
+\Hy@SectionHShift=\skip62
 ) (document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-\c@lstlisting=\count322
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+\c@lstlisting=\count335
 
 ("D:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count323
-\scratchdimen=\dimen199
+\scratchcounter=\count336
+\scratchdimen=\dimen198
 \scratchbox=\box107
-\nofMPsegments=\count324
-\nofMParguments=\count325
+\nofMPsegments=\count337
+\nofMParguments=\count338
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count326
-\MPscratchDim=\dimen256
-\MPnumerator=\count327
-\makeMPintoPDFobject=\count328
+\MPscratchCnt=\count339
+\MPscratchDim=\dimen199
+\MPnumerator=\count340
+\makeMPintoPDFobject=\count341
 \everyMPtoPDFconversion=\toks26
 ) ("D:\Program Files\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopdf-base.sty"
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -560,8 +584,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: subfig package v1.3 is loaded.
-Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
@@ -582,7 +604,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 )
-Package hyperref Info: Link coloring ON on input line 25.
+Package hyperref Info: Link coloring ON on input line 28.
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -594,22 +616,22 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 tring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count329
+\c@section@level=\count342
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
-LaTeX Info: Redefining \nameref on input line 25.
+LaTeX Info: Redefining \ref on input line 28.
+LaTeX Info: Redefining \pageref on input line 28.
+LaTeX Info: Redefining \nameref on input line 28.
  (document.out) (document.out)
 \@outlinefile=\write3
 \openout3 = `document.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
 
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
 
 
 ("D:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
@@ -617,82 +639,115 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\dj' on input line 41.
-
-
-Package hyperref Warning: Composite letter `\textasciicaron+c'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 44.
+(hyperref)                removing `\dj' on input line 44.
 
 [1
 
-{C:/Users/kosta/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (13.97522pt too wide) in paragraph at lines 88--90
+{C:/Users/kosta/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 47.
+
+[2]
+Overfull \hbox (13.97522pt too wide) in paragraph at lines 91--93
 \OT1/cmr/m/n/12 hodno na-met-nuti do-datne us-love za $\OML/cmm/m/it/12 f$\OT1/
 cmr/m/n/12 . Na os-novu [[]], dis-kri-mi-na-tor obucavamo
  []
 
-[3] [4] [5]
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\dj' on input line 149.
+[3] [4] [5] [6]
+<DCGAN.png, id=151, 333.245pt x 333.245pt>
+File: DCGAN.png Graphic file (type png)
+<use DCGAN.png>
+Package pdftex.def Info: DCGAN.png  used on input line 186.
+(pdftex.def)             Requested size: 185.25238pt x 185.25316pt.
+<SN(1)-DCGAN.png, id=152, 333.245pt x 333.245pt>
+File: SN(1)-DCGAN.png Graphic file (type png)
+<use SN(1)-DCGAN.png>
+Package pdftex.def Info: SN(1)-DCGAN.png  used on input line 194.
+(pdftex.def)             Requested size: 185.25238pt x 185.25316pt.
+<SN(2)-DCGAN.png, id=153, 333.245pt x 333.245pt>
+File: SN(2)-DCGAN.png Graphic file (type png)
+<use SN(2)-DCGAN.png>
+Package pdftex.def Info: SN(2)-DCGAN.png  used on input line 202.
+(pdftex.def)             Requested size: 185.25238pt x 185.25316pt.
+<SN(3)-DCGAN.png, id=154, 333.245pt x 333.245pt>
+File: SN(3)-DCGAN.png Graphic file (type png)
+<use SN(3)-DCGAN.png>
+Package pdftex.def Info: SN(3)-DCGAN.png  used on input line 210.
+(pdftex.def)             Requested size: 185.25238pt x 185.25316pt.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 156.
+(hyperref)                removing `\textasciicaron' on input line 220.
 
-[6]
-Underfull \hbox (badness 1009) in paragraph at lines 189--190
+
+Overfull \hbox (9.36113pt too wide) in paragraph at lines 223--224
+[]\OT1/cmr/m/n/12 Interesantno je pro-ve-riti uti-caj spek-tralne nor-ma-li-za-
+cije na preprilago[]denost
+ []
+
+
+Overfull \hbox (26.22438pt too wide) in paragraph at lines 223--224
+\OT1/cmr/m/n/12 mo-dela. Misljenja smo da spek-tralna nor-ma-li-za-cija ne do-
+vodi do preprilago[]davanja
+ []
+
+[7] [8 <./DCGAN.png (PNG copy)> <./SN(1)-DCGAN.png (PNG copy)> <./SN(2)-DCGAN.p
+ng (PNG copy)> <./SN(3)-DCGAN.png (PNG copy)>]
+Underfull \hbox (badness 1009) in paragraph at lines 259--260
 \OT1/cmr/m/n/12 drew Ra-bi-no-vich. Go-ing De-eper with Co-nvo-lu-ti-ons. \OT1/
 cmr/m/it/12 arXiv pre-print
  []
 
-[7]
-Underfull \hbox (badness 2080) in paragraph at lines 213--214
+[9]
+Underfull \hbox (badness 2080) in paragraph at lines 283--284
 []\OT1/cmr/m/n/12 Tero Kar-ras, Sa-muli La-ine, Timo Aila. A Style-Based Ge-ne-
 ra-
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
-[8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 289.
+[10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 289.
  (document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 289.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 289.
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: BCABC54653B2BBCA78FCC404C8E405B0;699.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
+(rerunfilecheck)             Checksum: D08728FB5C11605C9603C0C3B473A170;544.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 289.
  ) 
 Here is how much of TeX's memory you used:
- 12752 strings out of 480930
- 229207 string characters out of 2909547
- 494485 words of memory out of 3000000
- 28363 multiletter control sequences out of 15000+200000
- 543968 words of font info for 70 fonts, out of 3000000 for 9000
+ 13069 strings out of 480930
+ 236323 string characters out of 2909547
+ 597181 words of memory out of 3000000
+ 28653 multiletter control sequences out of 15000+200000
+ 546333 words of font info for 79 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 50i,8n,48p,697b,844s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Program Files/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
-.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/
-Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmsy8.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmti12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.p
-fb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-
-Output written on document.pdf (8 pages, 252273 bytes).
+ 48i,9n,46p,697b,845s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/kosta/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/cm-super/cm-super-
+ts1.enc}<D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+<D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmmi8.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pf
+b><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy8.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmti12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+tt12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb><C:/Users/kosta/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/cm-super/sf
+rm1200.pfb>
+Output written on document.pdf (10 pages, 1041118 bytes).
 PDF statistics:
- 238 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 256 PDF objects out of 1000 (max. 8388607)
+ 55 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
