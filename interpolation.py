@@ -7,25 +7,24 @@ import numpy as np
 
 import utils.utils as utils
 
+from torch import Tensor
 from utils.constants import GANType
 from torchvision.utils import save_image
 
 
-def linear_interpolation(p0, p1, t):
+def linear_interpolation(p0: Tensor, p1: Tensor, t: float) -> Tensor:
+    r"""Interpolate between two images.
+
+    Args:
+        -p0 (Tensor): First endpoint.
+        -p1 (Tensor): Second endpoint.
+        -t (float): Interpolation parameter.
+
+    Returns:
+        -(Tensor): Interpolated image.
+    """
+
     return p0 + t * (p1 - p0)
-
-
-def spherical_interpolation(p0, p1, t):
-    if t <= 0:
-        return p0
-    elif t >= 1:
-        return p1
-    elif np.allclose(p0, p1):
-        return p0
-
-    w = np.arccos(np.dot(p0 / np.linalg.norm(p0), p1 / np.linalg.norm(p1)))
-    sin_w = np.sin(w)
-    return np.sin((1.0 - t) * w) / win_w * p0 + np.sin(t * omega) / sin_w * p1
 
 
 if __name__ == "__main__":
