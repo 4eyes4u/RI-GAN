@@ -54,7 +54,7 @@ U ovom poglavlju ćemo opisati princip rada GAN-ova, GAN arhitekturu koju korist
 	
 	GAN se sastoji od \textit{generatora} i \textit{diskriminatora}. Diskriminator posmatramo kao preslikavanje $D: \mathcal{X} \rightarrow [0, 1]$, dok generator kao $G:\mathcal{Z} \rightarrow \mathcal{X}$, gde je $\mathcal{Z}$ latentni prostor. Pomenuti latentni prostor služi za uzorkovanje šuma na osnovu kojeg generator pokušava da generiše elemente raspodele $p_r$. Ako takvo uzorkovanje šuma vršimo iz raspodele $p_z$ definisane nad $\mathcal{Z}$, tada raspodelu $p_g$ možemo definisati kao $G(p_z)$.
 	
-	Napomenimo da male vrednosti diskriminatora odgovaraju generisanim podacima, dok veće stvarnim. Prema tome, generator nastoji generisanju podataka za koje diskriminator daje vrednosti bliske $0$, dok diskriminator za takve ulaze nastoji da se sve viši približi vrednosti $1$.
+	Napomenimo da male vrednosti diskriminatora odgovaraju generisanim podacima, dok veće stvarnim. Prema tome, generator nastoji generisanju podataka za koje diskriminator daje vrednosti bliske $1$, dok diskriminator za takve ulaze nastoji da se sve viši približi vrednosti $0$.
 	
 	Obučavanje diskriminatora i generatora se vrši uporedo, usled čega se može videti kao min-max igra. Takav proces se može formalizovati:
 	\begin{equation}
@@ -251,7 +251,7 @@ Ovde prikazujemo funkciju greške svih modela tokom obučavanja. Da bi prikazali
 \begin{itemize}
 	\item U slučaju DCGAN modela brzo dolazi do stagnacije diskriminatora, čija je funkcija greške približno $0$. Tada gradijent iz \ref{eq:grad} praktično ne postoji i generator nije u stanju da napreduje.
 	\item Funkcija greške diskriminatora u slučaju SN($k$)-DCGAN modela evidentno opada tokom treninga, ali na asimptotski povoljniji način. Usled takvog ponašanja diskriminatora gradijent iz \ref{eq:grad} neće ni nestati ni eksplodirati te se generator daleko bolja obučava.
-	\item Bez obzira da li se spektralna normalizacija upotrebljava ili ne, primetan je značaj šum u obučavanju.
+	\item Bez obzira da li se spektralna normalizacija upotrebljava ili ne, primetan je značajan šum u obučavanju.
 \end{itemize}
 
 \begin{figure}[H]
