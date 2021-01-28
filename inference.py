@@ -24,12 +24,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     data_dir = "./data/fake/fake"
-    os.makedirs(data_dir, exist_ok=True)    
+    os.makedirs(data_dir, exist_ok=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # since norm-layers are frozen in eval, we can use DCGAn for both confs
-    G, _ = utils.get_gan(GANType.DCGAN, device)
+    G, _ = utils.get_gan(GANType.DCGAN, device, 3)
     G.load_state_dict(torch.load(args.ckpt_path))
     G.eval()
 

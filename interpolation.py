@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    G, _ = utils.get_gan(GANType.SN_DCGAN, device)
+    G, _ = utils.get_gan(GANType.SN_DCGAN, device, 3)
     G.load_state_dict(torch.load(args.ckpt_path))
     G.eval()
 
