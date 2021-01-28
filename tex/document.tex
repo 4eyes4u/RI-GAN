@@ -141,7 +141,7 @@ Koristili smo dve arhitekture, DCGAN \cite{DCGAN-2016} i SN-DCGAN \cite{SN-2018}
 
 Skup CelebA ima $202599$ instanci. U našim eksperimentima je korišćeno $89931$, što predstavlja redukciju od oko $55\%$. Ovaj skup podataka se sastoji od slika lica poznatih ličnosti različite boje kože, odeće i dodatnih karakteristika poput naočara, nakita ili šminke.
 
-Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno u trajanju od 30 epoha. Korišćen je Adam optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
+Sve slike su rezolucije $64 \times 64$. Obučavanje je vršeno u trajanju od 30 epoha. Korišćen je Adam \cite{Adam-2014} optimizator za generator i diskriminator. U slučaju spektralne normalizacije, broj iteracija potrebnih za aproksimiranje najveće sopstvene vrednosti ($k$) je iz skupa $\{1, 2, 3\}$. Svi ostali parametri su korišćeni u skladu sa \cite{DCGAN-2016}. Svi modeli su obučavani po $3$ puta za svaku konfiguraciju i uzeta je srednja vrednost.
 
 Dužina trajanja epohe je redom $14$ i $5$ minuta na T4 i P100.
 
